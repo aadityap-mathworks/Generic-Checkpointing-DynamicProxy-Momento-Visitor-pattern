@@ -1,7 +1,5 @@
 package genericCheckpointing.driver;
 
-import java.io.File;
-
 /**
  * @author Aaditya Sakharam Patil
  *
