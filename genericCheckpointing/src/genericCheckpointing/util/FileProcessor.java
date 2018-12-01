@@ -9,13 +9,19 @@ public class FileProcessor {
 
 
 	private BufferedReader inputReader = null;
-	
+	private String filename;
 	/**
 	 *To process a file
 	 *create a inputReader
 	 *@param filename
 	 */
-	public FileProcessor(String filename)
+	public FileProcessor(String filenameIn)
+	{
+		this.filename=filenameIn;
+	}
+	
+	
+	public void open()
 	{
 		try {
 			//MyLogger.writeMessage("Constructor of FileProcessor called ", MyLogger.DebugLevel.CONSTRUCTOR);

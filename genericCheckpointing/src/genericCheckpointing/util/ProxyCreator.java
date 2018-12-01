@@ -8,7 +8,7 @@ import genericCheckpointing.server.StoreRestoreI;
 public class ProxyCreator {
 
 	public ProxyCreator() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public StoreRestoreI createProxy(Class<?>[] interfaceArray, InvocationHandler handler){

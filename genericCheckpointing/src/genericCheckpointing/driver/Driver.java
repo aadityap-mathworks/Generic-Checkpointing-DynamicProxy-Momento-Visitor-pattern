@@ -12,6 +12,7 @@ import genericCheckpointing.util.FileProcessor;
 import genericCheckpointing.util.MyAllTypesFirst;
 import genericCheckpointing.util.MyAllTypesSecond;
 import genericCheckpointing.util.ProxyCreator;
+import genericCheckpointing.util.Results;
 import genericCheckpointing.util.SerializableObject;
 import genericCheckpointing.xmlStoreRestore.StoreRestoreHandler;
 
@@ -75,9 +76,9 @@ public class Driver {
 				}
 				
 				FileProcessor fp = new FileProcessor(fileName);
-				
+				Results res = new Results(fileName);
 				ProxyCreator pc = new ProxyCreator();
-				StoreRestoreHandler storeRestorehandler = new StoreRestoreHandler(fp);
+				StoreRestoreHandler storeRestorehandler = new StoreRestoreHandler(fp,res);
 				
 				// create a proxy
 				StoreRestoreI cpointRef = (StoreRestoreI) pc.createProxy(
@@ -108,7 +109,7 @@ public class Driver {
 							
 							StringBuilder sb = new StringBuilder();
 							String alphabets = "abcdefghijklmnopqrstuvwxyz";
-							for (int c = 0; c < random.nextInt(10)+1 ; c++) {
+							for (int c = 0; c < 7 ; c++) {
 							       int randIndex=random.nextInt(alphabets.length()); 
 							       sb.append(alphabets.charAt(randIndex));            
 							 }
@@ -141,10 +142,10 @@ public class Driver {
 						    vector_old.add(mySecond);
 						    
 						    ((StoreI) cpointRef).writeObj(myFirst, 13,  "XML");
-						    //((StoreI) cpointRef).writeObj(mySecond, 17, "XML");
+						    ((StoreI) cpointRef).writeObj(mySecond, 17, "XML");
 
 						}
-
+						//System.out.println("zhala");
 						SerializableObject myRecordRet;
 
 						// create a data structure to store the returned ojects
