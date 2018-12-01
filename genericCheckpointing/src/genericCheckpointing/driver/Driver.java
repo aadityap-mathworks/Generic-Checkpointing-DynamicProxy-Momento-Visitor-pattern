@@ -140,7 +140,7 @@ public class Driver {
 						    vector_old.add(myFirst);
 						    vector_old.add(mySecond);
 						    
-						    //((StoreI) cpointRef).writeObj(myFirst, 13,  "XML");
+						    ((StoreI) cpointRef).writeObj(myFirst, 13,  "XML");
 						    //((StoreI) cpointRef).writeObj(mySecond, 17, "XML");
 
 						}

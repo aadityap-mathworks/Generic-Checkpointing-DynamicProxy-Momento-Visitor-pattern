@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
 import genericCheckpointing.util.FileProcessor;
+import genericCheckpointing.util.SerializableObject;
 
 public class StoreRestoreHandler implements InvocationHandler{
 
@@ -15,8 +16,24 @@ public class StoreRestoreHandler implements InvocationHandler{
 
 	@Override
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-		// TODO Auto-generated method stub
+		
+		if(method.getName().equals("writeObj"))
+		{
+			if(((String) args[2]).equalsIgnoreCase("XML"))
+			{
+				System.out.println("inside invoke");
+				serializeData((SerializableObject) args[0], new XMLSerializationStrategy());
+			}
+				
+		}
+		
+		
 		return null;
 	}
 
+	
+	public void serializeData(SerializableObject sObject, SerStrategy sStrategy) {
+        sStrategy.processInput(sObject);
+}
+	
 }
