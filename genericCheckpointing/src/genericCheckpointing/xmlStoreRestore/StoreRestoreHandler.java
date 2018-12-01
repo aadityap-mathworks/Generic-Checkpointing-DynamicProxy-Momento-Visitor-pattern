@@ -3,10 +3,14 @@ package genericCheckpointing.xmlStoreRestore;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
+import genericCheckpointing.util.FileProcessor;
+
 public class StoreRestoreHandler implements InvocationHandler{
 
-	public StoreRestoreHandler() {
-		// TODO Auto-generated constructor stub
+	FileProcessor fileProcessor;
+	public StoreRestoreHandler(FileProcessor fileProcessorIn) 
+	{
+		 this.fileProcessor= fileProcessorIn;
 	}
 
 	@Override
