@@ -1,5 +1,7 @@
 package genericCheckpointing.driver;
 
+import java.io.File;
+
 import genericCheckpointing.server.RestoreI;
 import genericCheckpointing.server.StoreI;
 import genericCheckpointing.server.StoreRestoreI;
@@ -34,11 +36,42 @@ public class Driver {
 			}
 			
 			String mode = args[0];
+			if (!mode.equals("serdeser") && !mode.equals("deser")) 
+			{
+				System.err.println("Error: Incorrect mode. Program accepts serdeser or deser mode");
+				System.exit(1);
+			}
+			
 			int NUM_OF_OBJECTS = Integer.parseInt(args[1]);
+			
 			String fileName = args[2];
+			File checkPointFile = new File(fileName);
 			
+				if (mode.equals("deser")) 
+				{	
+					if (!checkPointFile.exists() || checkPointFile.length() == 0 ) 
+					{
+						System.err.println("Invalid file for deser, file does not exist or is empty");
+						System.exit(1);
+					}
+				} 
+				else if(mode.equals("serdeser")) 
+				{
+					if (!checkPointFile.exists()) 
+					{
+						checkPointFile.createNewFile();
+					}
+					else if(checkPointFile.length() != 0 )
+					{
+						System.err.println("Invalid file for serdeser, file is not empty");
+						System.exit(1);
+					}
+					
+				}
+				
 			
-			
+				
+
 			// FIXME: read the value of checkpointFile from the command line
 			
 			ProxyCreator pc = new ProxyCreator();
