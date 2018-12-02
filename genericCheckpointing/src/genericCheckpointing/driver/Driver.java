@@ -73,9 +73,6 @@ public class Driver {
 //				}
 				
 				
-				
-				
-				
 				ProxyCreator pc = new ProxyCreator();
 				StoreRestoreHandler storeRestorehandler = new StoreRestoreHandler(fileName);
 				
@@ -159,6 +156,15 @@ public class Driver {
 						
 					case "deser":
 						
+						SerializableObject myRecordRet2 = null;
+						storeRestorehandler.openFile();
+						for (int j=0; j<2*NUM_OF_OBJECTS; j++) {
+
+						    myRecordRet2 = ((RestoreI) cpointRef).readObj("XML");
+						    System.out.println(myRecordRet2.toString());
+						}
+						
+						storeRestorehandler.closeFile();
 						break;
 				}
 				
