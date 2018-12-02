@@ -7,22 +7,22 @@ public class SerializeTypes {
 	}
 
 	
-	public String serializeDataType(String fieldName, String value, String className)
+	public String serializeDataType(String fieldName, String value, String className, Class<?> type)
 	{
-		String type;
-		
-		if(fieldName.contains("Other"))
+		if((type.equals(int.class)&& Integer.parseInt(value)<10)
+				|| (type.equals(double.class)&& Double.parseDouble(value)<10)
+				|| (type.equals(long.class))&& Long.parseLong(value)<10)
 		{
-			type = fieldName.replace("myOther","");
-			type= type.toLowerCase();
-		}
-		else
-		{
-			type = fieldName.replace("my","");
-			type= type.toLowerCase();
+				return null;			
 		}
 		
 		String line="";
+		if(type.equals(String.class))
+		{	
+			line = "		<"+fieldName+" xsi:type=\"xsd:string\">"+value.toString()+"</"+fieldName+">";
+			return line;
+		}
+		
 		if(className.contains("First"))
 		{			
 			line = "		<"+fieldName+" xsi:type=\"xsd:"+type+"\">"+value.toString()+"</"+fieldName+">";

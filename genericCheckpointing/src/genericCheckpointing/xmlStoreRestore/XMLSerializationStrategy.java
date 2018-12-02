@@ -16,7 +16,6 @@ public class XMLSerializationStrategy implements SerStrategy{
 	public XMLSerializationStrategy() {
 		this.serTypes= new SerializeTypes();
 	}
-
 	
 	
 	public String convert(String str) 
@@ -56,12 +55,15 @@ public class XMLSerializationStrategy implements SerStrategy{
 			String clsName =classType.getName();
 			
 			Field[] fields = sObject.getClass().getDeclaredFields();
+			
 			res.addToFinalResult("<DPSerialization>");
 			res.addToFinalResult("	<complexType xsi:type=\""+clsName+"\">");
 			
 			for(int f=0; f<fields.length; f++)
 			{
 				String fieldNameOg = fields[f].getName();
+				Class<?> type = fields[f].getType();
+				
 				String fieldName = convert(fieldNameOg);
 				//System.out.println(fieldName);
 				String method="";
@@ -79,10 +81,12 @@ public class XMLSerializationStrategy implements SerStrategy{
 				Object obj = meth.invoke(sObject);
 				String value= obj.toString();
 				
-				//System.out.println(value);
+				String xmlLine= serTypes.serializeDataType(fieldNameOg,value, clsName, type);
 				
-				String xmlLine= serTypes.serializeDataType(fieldNameOg,value, clsName);
-				res.addToFinalResult(xmlLine);
+				if(xmlLine!=null)
+				{
+					res.addToFinalResult(xmlLine);					
+				}
 			}
 			
 			res.addToFinalResult("	</complexType>");

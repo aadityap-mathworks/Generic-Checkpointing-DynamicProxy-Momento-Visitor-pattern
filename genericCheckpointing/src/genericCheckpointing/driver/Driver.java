@@ -1,18 +1,15 @@
 package genericCheckpointing.driver;
 
 import java.io.File;
-import java.nio.charset.Charset;
 import java.util.Random;
 import java.util.Vector;
 
 import genericCheckpointing.server.RestoreI;
 import genericCheckpointing.server.StoreI;
 import genericCheckpointing.server.StoreRestoreI;
-import genericCheckpointing.util.FileProcessor;
 import genericCheckpointing.util.MyAllTypesFirst;
 import genericCheckpointing.util.MyAllTypesSecond;
 import genericCheckpointing.util.ProxyCreator;
-import genericCheckpointing.util.Results;
 import genericCheckpointing.util.SerializableObject;
 import genericCheckpointing.xmlStoreRestore.StoreRestoreHandler;
 
@@ -61,24 +58,26 @@ public class Driver {
 					}
 					
 				} 
-				else if(mode.equals("serdeser")) 
-				{
-					if (!checkPointFile.exists()) 
-					{
-						checkPointFile.createNewFile();
-					}
-					else if(checkPointFile.length() != 0 )
-					{
-						System.err.println("Invalid file for serdeser, file is not empty");
-						System.exit(1);
-					}
-					
-				}
+//				else if(mode.equals("serdeser")) 
+//				{
+//					if (!checkPointFile.exists()) 
+//					{
+//						checkPointFile.createNewFile();
+//					}
+//					else if(checkPointFile.length() != 0 )
+//					{
+//						System.err.println("Invalid file for serdeser, file is not empty");
+//						System.exit(1);
+//					}
+//					
+//				}
 				
-				FileProcessor fp = new FileProcessor(fileName);
-				Results res = new Results(fileName);
+				
+				
+				
+				
 				ProxyCreator pc = new ProxyCreator();
-				StoreRestoreHandler storeRestorehandler = new StoreRestoreHandler(fp,res);
+				StoreRestoreHandler storeRestorehandler = new StoreRestoreHandler(fileName);
 				
 				// create a proxy
 				StoreRestoreI cpointRef = (StoreRestoreI) pc.createProxy(
@@ -101,12 +100,8 @@ public class Driver {
 						Random random = new Random();
 						for (int i=0; i<NUM_OF_OBJECTS; i++) {
 
-							int myInt=random.nextInt(100)+i;
-							//System.out.println("myInt: "+myInt);
-							
+							int myInt=random.nextInt(100)+i+1;
 							long myLong=random.nextLong();
-							//System.out.println("myLong: "+myLong);
-							
 							StringBuilder sb = new StringBuilder();
 							String alphabets = "abcdefghijklmnopqrstuvwxyz";
 							for (int c = 0; c < 7 ; c++) {
@@ -114,28 +109,17 @@ public class Driver {
 							       sb.append(alphabets.charAt(randIndex));            
 							 }
 							String myString=sb.toString();
-							//System.out.println("myString: "+myString);
-							
 							boolean myBool= random.nextBoolean();
-							//System.out.println("myBool: "+myBool);
-							
 							int myOtherInt=random.nextInt(1000)+i+10;
-							//System.out.println("myOtherInt: "+myOtherInt);
-							
 							myFirst = new MyAllTypesFirst(myInt,myLong,myString,myBool,myOtherInt);
 							
 							
 							
-							double myDouble= Math.random()*(i+1)*10;
-							//System.out.println("myDouble: "+myDouble);
+							double myDouble= random.nextDouble()*(i+1)*10;
 							float myFloat=random.nextFloat()*(i+1)*10;
-							//System.out.println("myFloat: "+myFloat);
 							short myShort=(short) random.nextInt(1 << 16);
-							//System.out.println("myShort: "+myShort);
 							double myOtherDouble=myDouble*Math.random()*10;
-							//System.out.println("myOtherDouble: "+myOtherDouble);
-							char myChar=(char) (random.nextInt(26) + 'a');;
-							//System.out.println("myChar: "+myChar);
+							char myChar=(char) (random.nextInt(26) + 'a');
 						    mySecond = new MyAllTypesSecond(myDouble,myFloat,myShort,myOtherDouble,myChar);
 
 						    vector_old.add(myFirst);
@@ -145,18 +129,30 @@ public class Driver {
 						    ((StoreI) cpointRef).writeObj(mySecond, 17, "XML");
 
 						}
-						//System.out.println("zhala");
+						
+						for(int a =0; a<vector_old.size();a++)
+						{
+							System.out.println(vector_old.get(a));
+						}
+						
 						SerializableObject myRecordRet;
 
+						storeRestorehandler.openFile();
 						// create a data structure to store the returned ojects
 						for (int j=0; j<2*NUM_OF_OBJECTS; j++) {
 
-						    //myRecordRet = ((RestoreI) cpointRef).readObj("XML");
-						    // FIXME: store myRecordRet in the vector (or arrayList)
+						    myRecordRet = ((RestoreI) cpointRef).readObj("XML");
+						    vector_new.add(myRecordRet);
 						}
 
-						// FIXME: invoke a method on the handler to close the file (if it hasn't already been closed)
-
+						storeRestorehandler.closeFile();
+						
+						System.out.println();
+						for(int a =0; a<vector_new.size();a++)
+						{
+							System.out.println(vector_new.get(a));
+						}
+						
 						// FIXME: compare and confirm that the serialized and deserialzed objects are equal. 
 						// The comparison should use the equals and hashCode methods. Note that hashCode 
 						// is used for key-value based data structures

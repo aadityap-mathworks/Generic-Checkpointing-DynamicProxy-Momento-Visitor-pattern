@@ -10,13 +10,27 @@ public class MyAllTypesSecond extends SerializableObject {
 	
 	public MyAllTypesSecond(double myDoubleIn, float myFloatIn, short myShortIn, double myOtherDoubleIn, char myCharIn) 
 	{
-		this.myDouble=myDoubleIn;
+		if(myDoubleIn>=10)
+		{			
+			this.myDouble=myDoubleIn;
+		}
+		
 		this.myFloat = myFloatIn;
 		this.myShort= myShortIn;
-		this.myOtherDouble= myOtherDoubleIn;
+		
+		if(myOtherDoubleIn>=10)
+		{			
+			this.myOtherDouble= myOtherDoubleIn;
+		}
 		this.myChar= myCharIn;
 	}
 
+	public MyAllTypesSecond()
+	{
+		
+	}
+	
+	
 	public double getMyDouble() {
 		return myDouble;
 	}
@@ -93,6 +107,7 @@ public class MyAllTypesSecond extends SerializableObject {
 			return false;
 		return true;
 	}
+
 
 	
 	

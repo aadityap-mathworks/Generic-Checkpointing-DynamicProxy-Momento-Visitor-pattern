@@ -10,12 +10,30 @@ public class MyAllTypesFirst extends SerializableObject {
 	
 	public MyAllTypesFirst(int myIntIn , long myLongIn, String myStringIn, boolean myBoolIn, int myOtherIntIn ) 
 	{
-		this.myInt=myIntIn;
-		this.myLong = myLongIn;
+		if(myIntIn>=10)
+		{			
+			this.myInt=myIntIn;
+		}
+		
+		if(myLongIn>=10)
+		{			
+			this.myLong = myLongIn;
+		}
+		
 		this.myString=myStringIn;
 		this.myBool= myBoolIn;
-		this.myOtherInt= myOtherIntIn;
+		
+		if(myOtherIntIn>=10)
+		{			
+			this.myOtherInt= myOtherIntIn;
+		}
+		
 	
+	}
+	
+	public MyAllTypesFirst()
+	{
+		
 	}
 
 	public int getMyInt() {
@@ -96,7 +114,6 @@ public class MyAllTypesFirst extends SerializableObject {
 			return false;
 		return true;
 	}
-	
 	
 	
 

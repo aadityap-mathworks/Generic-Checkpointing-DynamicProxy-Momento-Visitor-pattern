@@ -9,12 +9,13 @@ import genericCheckpointing.util.SerializableObject;
 
 public class StoreRestoreHandler implements InvocationHandler{
 
-	FileProcessor fileProcessor;
 	Results res;
-	public StoreRestoreHandler(FileProcessor fileProcessorIn, Results resIn) 
+	FileProcessor fp;
+	
+	public StoreRestoreHandler(String fileName) 
 	{
-		 this.fileProcessor= fileProcessorIn;
-		 this.res=resIn;
+		this.res = new Results(fileName);
+		this.fp= new FileProcessor(fileName);
 	}
 
 	@Override
@@ -22,17 +23,21 @@ public class StoreRestoreHandler implements InvocationHandler{
 		
 		if(method.getName().equals("writeObj"))
 		{
-			fileProcessor.open();
-			
 			if(((String) args[2]).equalsIgnoreCase("XML"))
 			{
-				//System.out.println("inside invoke");
 				serializeData((SerializableObject) args[0], new XMLSerializationStrategy(),res);
 			}
 				
-			fileProcessor.close();
 		}
 		
+		else if(method.getName().equals("readObj"))
+		{
+			if(((String) args[0]).equalsIgnoreCase("XML"))
+			{
+					return deSerialize(new XMLDeSerializationStrategy(),fp);
+				
+			}			
+		}
 		
 		return null;
 	}
@@ -40,6 +45,22 @@ public class StoreRestoreHandler implements InvocationHandler{
 	
 	public void serializeData(SerializableObject sObject, SerStrategy sStrategy, Results res) {
         sStrategy.processInput(sObject, res);
-}
+	}
+	
+	private SerializableObject deSerialize(XMLDeSerializationStrategy dStrategy, FileProcessor fpIn) 
+	{
+		return dStrategy.deSerialize(fpIn);
+		
+	}
+	
+	public void openFile()
+	{
+		fp.open();
+	}
+	
+	public void closeFile()
+	{
+		fp.close();
+	}
 	
 }
