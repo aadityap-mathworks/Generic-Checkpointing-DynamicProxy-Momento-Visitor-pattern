@@ -130,11 +130,6 @@ public class Driver {
 
 						}
 						
-						for(int a =0; a<vector_old.size();a++)
-						{
-							System.out.println(vector_old.get(a));
-						}
-						
 						SerializableObject myRecordRet;
 
 						storeRestorehandler.openFile();
@@ -147,18 +142,17 @@ public class Driver {
 
 						storeRestorehandler.closeFile();
 						
-						System.out.println();
+						int noMatch=0;
 						for(int a =0; a<vector_new.size();a++)
 						{
-							System.out.println(vector_new.get(a));
+							if(!vector_new.get(a).equals(vector_old.get(a)) 
+									|| vector_new.get(a).hashCode()!=vector_old.get(a).hashCode())
+							{
+								noMatch++;
+							}
 						}
 						
-						// FIXME: compare and confirm that the serialized and deserialzed objects are equal. 
-						// The comparison should use the equals and hashCode methods. Note that hashCode 
-						// is used for key-value based data structures
-						
-						
-						
+						System.out.println(noMatch+" mismatched objects");
 						
 						break;
 						

@@ -114,6 +114,12 @@ public class MyAllTypesFirst extends SerializableObject {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "MyAllTypesFirst [myInt=" + myInt + ", myLong=" + myLong + ", myString=" + myString + ", myBool="
+				+ myBool + ", myOtherInt=" + myOtherInt + "]";
+	}
 	
 	
 
