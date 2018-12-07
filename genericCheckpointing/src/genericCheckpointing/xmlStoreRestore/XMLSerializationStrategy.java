@@ -13,11 +13,18 @@ public class XMLSerializationStrategy implements SerStrategy{
 
 	SerializeTypes serTypes;
 	
+	/**
+	 * constructor
+	 *
+	 */
 	public XMLSerializationStrategy() {
 		this.serTypes= new SerializeTypes();
 	}
 	
-	
+	/**
+	 * method to convert first char to uppercase
+	 * @param string 
+	 */
 	public String convert(String str) 
     { 
   
@@ -44,7 +51,10 @@ public class XMLSerializationStrategy implements SerStrategy{
     } 
 	
 	
-	
+	/**
+	 * method to serialize objects
+	 *
+	 */
 	@Override
 	public void processInput(SerializableObject sObject, Results res) 
 	{

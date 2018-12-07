@@ -15,8 +15,8 @@ public class Results implements FileDisplayInterface, StdoutDisplayInterface {
 	
 	public static ArrayList<String> finalList = new ArrayList<String>();
 	String outputFile;
-	public static ArrayList<Integer> prime = new ArrayList<Integer>();
-	public static ArrayList<String> pallindrome = new ArrayList<String>();
+	public ArrayList<Integer> prime = new ArrayList<Integer>();
+	public ArrayList<String> pallindrome = new ArrayList<String>();
 	/**
 	 * to get output file name
 	 *@param filename

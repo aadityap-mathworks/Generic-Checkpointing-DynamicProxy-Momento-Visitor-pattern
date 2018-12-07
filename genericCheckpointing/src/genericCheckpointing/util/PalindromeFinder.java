@@ -1,11 +1,18 @@
 package genericCheckpointing.util;
-
+/**
+ * @author Aaditya Sakharam Patil
+ * Referred pallindrome algorithm from https://www.geeksforgeeks.org/
+ */
 public class PalindromeFinder {
 
 	public PalindromeFinder() {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * recursive function to check palindrome
+	 * @param String, start, end index
+	 */
 	static boolean isPalRec(String str, int s, int e) 
 		{ 
 		// If there is only one character 

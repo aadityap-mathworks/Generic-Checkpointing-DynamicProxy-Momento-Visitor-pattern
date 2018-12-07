@@ -1,5 +1,8 @@
 package genericCheckpointing.util;
-
+/**
+ * @author Aaditya Sakharam Patil
+ *
+ */
 import genericCheckpointing.visitor.VisitorI;
 
 public class MyAllTypesFirst extends SerializableObject {
@@ -10,6 +13,10 @@ public class MyAllTypesFirst extends SerializableObject {
 	private boolean myBool=false;
 	private int myOtherInt=0;
 	
+	/**
+	 * constructor
+	 *
+	 */
 	public MyAllTypesFirst(int myIntIn , long myLongIn, String myStringIn, boolean myBoolIn, int myOtherIntIn ) 
 	{
 				
@@ -21,11 +28,19 @@ public class MyAllTypesFirst extends SerializableObject {
 	
 	}
 	
+	/**
+	 * empty constructor
+	 *
+	 */
 	public MyAllTypesFirst()
 	{
 		
 	}
 
+	/**
+	 * Getter and setter methods
+	 *
+	 */
 	public int getMyInt() {
 		return myInt;
 	}
@@ -75,7 +90,9 @@ public class MyAllTypesFirst extends SerializableObject {
 	
 	
 	
-	
+	/**
+	 * to calculate hashcode
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -88,7 +105,10 @@ public class MyAllTypesFirst extends SerializableObject {
 		return result;
 	}
 
-	
+
+	/**
+	 * equals method
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

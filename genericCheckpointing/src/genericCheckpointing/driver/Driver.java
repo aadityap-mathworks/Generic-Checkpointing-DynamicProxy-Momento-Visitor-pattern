@@ -41,6 +41,7 @@ public class Driver {
 				System.exit(1);
 			}
 			
+			//validate mode
 			String mode = args[0];
 			if (!mode.equals("serdeser") && !mode.equals("deser")) 
 			{
@@ -48,7 +49,7 @@ public class Driver {
 				System.exit(1);
 			}
 			
-			
+			//validate number of objects
 			int NUM_OF_OBJECTS = Integer.parseInt(args[1]);
 			if(NUM_OF_OBJECTS==0)
 			{
@@ -56,6 +57,7 @@ public class Driver {
 				System.exit(1);
 			}
 			
+			//validate checkpoint file
 			String fileName = args[2];
 			File checkPointFile = new File(fileName);
 			
@@ -68,21 +70,21 @@ public class Driver {
 					}
 					
 				} 
-//				else if(mode.equals("serdeser")) 
-//				{
-//					if (!checkPointFile.exists()) 
-//					{
-//						checkPointFile.createNewFile();
-//					}
-//					else if(checkPointFile.length() != 0 )
-//					{
-//						System.err.println("Invalid file for serdeser, file is not empty");
-//						System.exit(1);
-//					}
-//					
-//				}
+				else if(mode.equals("serdeser")) 
+				{
+					if (!checkPointFile.exists()) 
+					{
+						checkPointFile.createNewFile();
+					}
+					else if(checkPointFile.length() != 0 )
+					{
+						System.err.println("Invalid file for serdeser, file is not empty");
+						System.exit(1);
+					}
+					
+				}
 				
-				
+				//creating instance of proxy and handler
 				ProxyCreator pc = new ProxyCreator();
 				StoreRestoreHandler storeRestorehandler = new StoreRestoreHandler(fileName);
 				
@@ -97,12 +99,20 @@ public class Driver {
 	
 				MyAllTypesFirst myFirst;
 				MyAllTypesSecond  mySecond;
+				
+				//vectors to store objects
 				Vector<SerializableObject> vector_old = new Vector<SerializableObject>();
 				Vector<SerializableObject> vector_new = new Vector<SerializableObject>();
-				Results res = new Results(); 
 				Vector<SerializableObject> vector_deser = new Vector<SerializableObject>();
+				
+				//instance of result class
+				Results res = new Results(); 
+				
+				//creating instance of visitors
 				VisitorI prime = new PrimeVisitorImpl(res);
 				VisitorI palindrome = new PalindromVisitorImpl(res);
+				
+				
 				
 				switch(mode)
 				{
@@ -111,6 +121,7 @@ public class Driver {
 						Random random = new Random();
 						for (int i=0; i<NUM_OF_OBJECTS; i++) {
 
+							//creating object of class MyAllTypesFirst
 							int myInt=random.nextInt(100)+i+1;
 							long myLong=random.nextLong();
 							StringBuilder sb = new StringBuilder();
@@ -122,10 +133,9 @@ public class Driver {
 							String myString=sb.toString();
 							boolean myBool= random.nextBoolean();
 							int myOtherInt=random.nextInt(1000)+i+10;
-							myFirst = new MyAllTypesFirst(myInt,myLong,"ABBA",myBool,myOtherInt);
+							myFirst = new MyAllTypesFirst(myInt,myLong,myString,myBool,myOtherInt);
 							
-							
-							
+							//creating object of class MyAllTypesSecond
 							double myDouble= random.nextDouble()*(i+1)*10;
 							float myFloat=random.nextFloat()*(i+1)*10;
 							short myShort=(short) random.nextInt(1 << 16);
@@ -133,9 +143,11 @@ public class Driver {
 							char myChar=(char) (random.nextInt(26) + 'a');
 						    mySecond = new MyAllTypesSecond(myDouble,myFloat,myShort,myOtherDouble,myChar);
 
+						    //storing objects
 						    vector_old.add(myFirst);
 						    vector_old.add(mySecond);
 						    
+						    //calling writeObj method
 						    ((StoreI) cpointRef).writeObj(myFirst, 13,  "XML");
 						    ((StoreI) cpointRef).writeObj(mySecond, 17, "XML");
 
@@ -144,7 +156,8 @@ public class Driver {
 						SerializableObject myRecordRet;
 
 						storeRestorehandler.openFile();
-						// create a data structure to store the returned ojects
+						
+						//deserializing objects
 						for (int j=0; j<2*NUM_OF_OBJECTS; j++) {
 
 						    myRecordRet = ((RestoreI) cpointRef).readObj("XML");
@@ -153,6 +166,7 @@ public class Driver {
 
 						storeRestorehandler.closeFile();
 						
+						//finding mismatches
 						int noMatch=0;
 						for(int a =0; a<vector_new.size();a++)
 						{
@@ -165,7 +179,7 @@ public class Driver {
 						
 						System.out.println(noMatch+" mismatched objects");
 					
-						
+						//visitors to find prime numbers and palindromes
 						MyAllTypesFirst sfirst= new MyAllTypesFirst();
 						MyAllTypesSecond ssecond = new MyAllTypesSecond();
 						for(int a =0; a<vector_old.size();a++)
@@ -184,8 +198,8 @@ public class Driver {
 							
 						}
 						
+						//printing number of prime numbers and all the palindromes
 						System.out.println("number of unique primes: "+res.prime.size());
-						
 						for(int i=0; i<res.pallindrome.size(); i++)
 						{
 							System.out.println("palindrome "+(i+1)+": "+res.pallindrome.get(i));
@@ -199,6 +213,8 @@ public class Driver {
 						
 						SerializableObject myRecordRet2 = null;
 						storeRestorehandler.openFile();
+						
+						//deserializing objects
 						for (int j=0; j<NUM_OF_OBJECTS; j++) {
 
 						    myRecordRet2 = ((RestoreI) cpointRef).readObj("XML");
@@ -208,6 +224,7 @@ public class Driver {
 						
 						storeRestorehandler.closeFile();
 						
+						//visitors to find prime numbers and palindromes
 						MyAllTypesFirst dfirst= new MyAllTypesFirst();
 						MyAllTypesSecond dsecond = new MyAllTypesSecond();
 						for(int a =0; a<vector_deser.size();a++)
@@ -226,8 +243,8 @@ public class Driver {
 							
 						}
 						
+						//printing number of prime numbers and all the palindromes
 						System.out.println("number of unique primes: "+res.prime.size());
-						
 						for(int i=0; i<res.pallindrome.size(); i++)
 						{
 							System.out.println("palindrome "+(i+1)+": "+res.pallindrome.get(i));

@@ -1,5 +1,8 @@
 package genericCheckpointing.xmlStoreRestore;
-
+/**
+ * @author Aaditya Sakharam Patil
+ * reference to convert first char to uppercase: https://www.geeksforgeeks.org/
+ */
 import java.lang.reflect.Method;
 
 import genericCheckpointing.util.FileProcessor;
@@ -8,9 +11,13 @@ import genericCheckpointing.util.SerializableObject;
 public class XMLDeSerializationStrategy implements DeserStrategy{
 
 	public XMLDeSerializationStrategy() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
+	/**
+	 * method to deserialize objects
+	 *
+	 */
 	@Override
 	public SerializableObject deSerialize(FileProcessor fp) {
 		String currentLine;
@@ -125,6 +132,10 @@ public class XMLDeSerializationStrategy implements DeserStrategy{
 		return obj;
 	}
 
+	/**
+	 * method to uppenrcase first character of string
+	 *
+	 */
 	public String convert(String str) 
     { 
   

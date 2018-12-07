@@ -1,5 +1,8 @@
 package genericCheckpointing.util;
-
+/**
+ * @author Aaditya Sakharam Patil
+ *
+ */
 import genericCheckpointing.visitor.VisitorI;
 
 public class MyAllTypesSecond extends SerializableObject {
@@ -10,6 +13,10 @@ public class MyAllTypesSecond extends SerializableObject {
 	private double myOtherDouble=0;
 	private char myChar=0;
 	
+
+	/**
+	 * Constructor to set default values
+	 */
 	public MyAllTypesSecond(double myDoubleIn, float myFloatIn, short myShortIn, double myOtherDoubleIn, char myCharIn) 
 	{
 					
@@ -20,13 +27,20 @@ public class MyAllTypesSecond extends SerializableObject {
 		this.myChar= myCharIn;
 	}
 
+
+	/**
+	 * empty constructor
+	 */
 	public MyAllTypesSecond()
 	{
 		
 	}
 	
 	
-	
+
+	/**
+	 * getter and setter methods for data members
+	 */
 	public double getMyDouble() {
 		return myDouble;
 	}
@@ -74,6 +88,10 @@ public class MyAllTypesSecond extends SerializableObject {
 	}
 	
 	
+
+	/**
+	 * to calculate hashcode
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -89,6 +107,10 @@ public class MyAllTypesSecond extends SerializableObject {
 		return result;
 	}
 
+
+	/**
+	 * equals method
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -111,6 +133,11 @@ public class MyAllTypesSecond extends SerializableObject {
 		return true;
 	}
 
+	
+
+	/**
+	 * toString method
+	 */
 	@Override
 	public String toString() {
 		return "MyAllTypesSecond [myDouble=" + myDouble + ", myFloat=" + myFloat + ", myShort=" + myShort

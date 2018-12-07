@@ -1,14 +1,22 @@
 package genericCheckpointing.util;
-
+/**
+ * @author Aaditya Sakharam Patil
+ *
+ */
 public class SerializeTypes {
 
 	public SerializeTypes() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
-	
+	/**
+	 * method to construct a line to serialize in XML
+	 * @param fieldname , its value, classname and type of data member
+	 * @return String line
+	 */
 	public String serializeDataType(String fieldName, String value, String className, Class<?> type)
 	{
+		//checks if value is less than 10
 		if((type.equals(int.class)&& Integer.parseInt(value)<10)
 				|| (type.equals(double.class)&& Double.parseDouble(value)<10)
 				|| (type.equals(long.class))&& Long.parseLong(value)<10)
@@ -23,6 +31,7 @@ public class SerializeTypes {
 			return line;
 		}
 		
+		//constructing string to put in XML file
 		if(className.contains("First"))
 		{			
 			line = "		<"+fieldName+" xsi:type=\"xsd:"+type+"\">"+value.toString()+"</"+fieldName+">";

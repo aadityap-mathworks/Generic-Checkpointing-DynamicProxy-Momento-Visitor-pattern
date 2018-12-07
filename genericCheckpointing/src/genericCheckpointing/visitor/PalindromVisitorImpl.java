@@ -1,7 +1,8 @@
 package genericCheckpointing.visitor;
-
-import java.util.Vector;
-
+/**
+ * @author Aaditya Sakharam Patil
+ *
+ */
 import genericCheckpointing.util.MyAllTypesFirst;
 import genericCheckpointing.util.MyAllTypesSecond;
 import genericCheckpointing.util.PalindromeFinder;
@@ -11,12 +12,20 @@ public class PalindromVisitorImpl implements VisitorI{
 
 	private Results res;
 	private PalindromeFinder pf;
+	
+	/**
+	 * constructor
+	 */
 	public PalindromVisitorImpl(Results resIn)
 	{
 		this.res = resIn;
 		this.pf = new PalindromeFinder();
 	}
 
+	/**
+	 * visit method to find prime numbers in MyAllTypesSecond
+	 * @param object of MyAllTypesFirst
+	 */
 	@Override
 	public void visit(MyAllTypesFirst matf) {
 		boolean ans =pf.isPalindrome(matf.getMyString());

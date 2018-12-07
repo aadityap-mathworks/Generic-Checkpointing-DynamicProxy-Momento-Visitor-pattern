@@ -1,9 +1,12 @@
 package genericCheckpointing.util;
-
+/**
+ * @author Aaditya Sakharam Patil
+ *
+ */
 public class SerializableObject {
 
 	public SerializableObject() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 }

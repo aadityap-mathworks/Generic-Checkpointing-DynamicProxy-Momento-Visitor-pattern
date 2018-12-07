@@ -1,5 +1,8 @@
 package genericCheckpointing.util;
-
+/**
+ * @author Aaditya Sakharam Patil
+ *
+ */
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -10,9 +13,9 @@ public class FileProcessor {
 
 	private BufferedReader inputReader = null;
 	private String filename;
+	
 	/**
-	 *To process a file
-	 *create a inputReader
+	 *constructor
 	 *@param filename
 	 */
 	public FileProcessor(String filenameIn)
@@ -20,7 +23,10 @@ public class FileProcessor {
 		this.filename=filenameIn;
 	}
 	
-	
+	/**
+	 *To process a file
+	 *
+	 */
 	public void open()
 	{
 		try {
@@ -78,5 +84,42 @@ public class FileProcessor {
 	    	finally {}
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((filename == null) ? 0 : filename.hashCode());
+		result = prime * result + ((inputReader == null) ? 0 : inputReader.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		FileProcessor other = (FileProcessor) obj;
+		if (filename == null) {
+			if (other.filename != null)
+				return false;
+		} else if (!filename.equals(other.filename))
+			return false;
+		if (inputReader == null) {
+			if (other.inputReader != null)
+				return false;
+		} else if (!inputReader.equals(other.inputReader))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "FileProcessor [inputReader=" + inputReader + ", filename=" + filename + "]";
+	}
+
+	 
 
 }
