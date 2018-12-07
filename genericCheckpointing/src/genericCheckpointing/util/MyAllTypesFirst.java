@@ -1,5 +1,7 @@
 package genericCheckpointing.util;
 
+import genericCheckpointing.visitor.VisitorI;
+
 public class MyAllTypesFirst extends SerializableObject {
 
 	private int myInt=0;
@@ -10,24 +12,12 @@ public class MyAllTypesFirst extends SerializableObject {
 	
 	public MyAllTypesFirst(int myIntIn , long myLongIn, String myStringIn, boolean myBoolIn, int myOtherIntIn ) 
 	{
-		if(myIntIn>=10)
-		{			
-			this.myInt=myIntIn;
-		}
-		
-		if(myLongIn>=10)
-		{			
-			this.myLong = myLongIn;
-		}
-		
+				
+		this.myInt=myIntIn;		
+		this.myLong = myLongIn;
 		this.myString=myStringIn;
 		this.myBool= myBoolIn;
-		
-		if(myOtherIntIn>=10)
-		{			
-			this.myOtherInt= myOtherIntIn;
-		}
-		
+		this.myOtherInt= myOtherIntIn;
 	
 	}
 	
@@ -76,6 +66,15 @@ public class MyAllTypesFirst extends SerializableObject {
 		this.myOtherInt = myOtherInt;
 	}
 
+	
+	
+	public void accept(VisitorI visitor)
+	{
+		visitor.visit(this);
+	}
+	
+	
+	
 	
 	@Override
 	public int hashCode() {

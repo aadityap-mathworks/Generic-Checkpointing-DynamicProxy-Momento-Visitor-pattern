@@ -10,7 +10,11 @@ import genericCheckpointing.server.StoreRestoreI;
 import genericCheckpointing.util.MyAllTypesFirst;
 import genericCheckpointing.util.MyAllTypesSecond;
 import genericCheckpointing.util.ProxyCreator;
+import genericCheckpointing.util.Results;
 import genericCheckpointing.util.SerializableObject;
+import genericCheckpointing.visitor.PalindromVisitorImpl;
+import genericCheckpointing.visitor.PrimeVisitorImpl;
+import genericCheckpointing.visitor.VisitorI;
 import genericCheckpointing.xmlStoreRestore.StoreRestoreHandler;
 
 /**
@@ -44,7 +48,13 @@ public class Driver {
 				System.exit(1);
 			}
 			
+			
 			int NUM_OF_OBJECTS = Integer.parseInt(args[1]);
+			if(NUM_OF_OBJECTS==0)
+			{
+				System.err.println("Invalid number of objets");
+				System.exit(1);
+			}
 			
 			String fileName = args[2];
 			File checkPointFile = new File(fileName);
@@ -89,6 +99,10 @@ public class Driver {
 				MyAllTypesSecond  mySecond;
 				Vector<SerializableObject> vector_old = new Vector<SerializableObject>();
 				Vector<SerializableObject> vector_new = new Vector<SerializableObject>();
+				Results res = new Results(); 
+				Vector<SerializableObject> vector_deser = new Vector<SerializableObject>();
+				VisitorI prime = new PrimeVisitorImpl(res);
+				VisitorI palindrome = new PalindromVisitorImpl(res);
 				
 				switch(mode)
 				{
@@ -108,7 +122,7 @@ public class Driver {
 							String myString=sb.toString();
 							boolean myBool= random.nextBoolean();
 							int myOtherInt=random.nextInt(1000)+i+10;
-							myFirst = new MyAllTypesFirst(myInt,myLong,myString,myBool,myOtherInt);
+							myFirst = new MyAllTypesFirst(myInt,myLong,"ABBA",myBool,myOtherInt);
 							
 							
 							
@@ -150,6 +164,33 @@ public class Driver {
 						}
 						
 						System.out.println(noMatch+" mismatched objects");
+					
+						
+						MyAllTypesFirst sfirst= new MyAllTypesFirst();
+						MyAllTypesSecond ssecond = new MyAllTypesSecond();
+						for(int a =0; a<vector_old.size();a++)
+						{
+							if(vector_old.get(a) instanceof MyAllTypesFirst)
+							{
+								sfirst = (MyAllTypesFirst) vector_old.get(a);
+								sfirst.accept(prime);
+								sfirst.accept(palindrome);
+							}
+							else if(vector_old.get(a) instanceof MyAllTypesSecond)
+							{
+								ssecond.accept(prime);
+								ssecond.accept(palindrome);
+							}
+							
+						}
+						
+						System.out.println("number of unique primes: "+res.prime.size());
+						
+						for(int i=0; i<res.pallindrome.size(); i++)
+						{
+							System.out.println("palindrome "+(i+1)+": "+res.pallindrome.get(i));
+						}
+		
 						
 						break;
 						
@@ -158,25 +199,44 @@ public class Driver {
 						
 						SerializableObject myRecordRet2 = null;
 						storeRestorehandler.openFile();
-						for (int j=0; j<2*NUM_OF_OBJECTS; j++) {
+						for (int j=0; j<NUM_OF_OBJECTS; j++) {
 
 						    myRecordRet2 = ((RestoreI) cpointRef).readObj("XML");
+						    vector_deser.add(myRecordRet2);
 						    System.out.println(myRecordRet2.toString());
 						}
 						
 						storeRestorehandler.closeFile();
+						
+						MyAllTypesFirst dfirst= new MyAllTypesFirst();
+						MyAllTypesSecond dsecond = new MyAllTypesSecond();
+						for(int a =0; a<vector_deser.size();a++)
+						{
+							if(vector_deser.get(a) instanceof MyAllTypesFirst)
+							{
+								dfirst = (MyAllTypesFirst) vector_deser.get(a);
+								dfirst.accept(prime);
+								dfirst.accept(palindrome);
+							}
+							else if(vector_deser.get(a) instanceof MyAllTypesSecond)
+							{
+								dsecond.accept(prime);
+								dsecond.accept(palindrome);
+							}
+							
+						}
+						
+						System.out.println("number of unique primes: "+res.prime.size());
+						
+						for(int i=0; i<res.pallindrome.size(); i++)
+						{
+							System.out.println("palindrome "+(i+1)+": "+res.pallindrome.get(i));
+						}
 						break;
 				}
 				
 
-
-			        // FIXME
-			        // Create an instance of the PrimeVisitorImpl and use it to determine the number of unique integers in all the instances of MyAllTypesFirst and MyAllTypesSecond
-
 			        
-			        // FIXME
-			        // Create an instance of the PalindromeVisitorImpl and use it to determine the number of unique integers in all the instances of MyAllTypesFirst and MyAllTypesSecond
-
 		}
 		catch (Exception e) {
 			e.printStackTrace();

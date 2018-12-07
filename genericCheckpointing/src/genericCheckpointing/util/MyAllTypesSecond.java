@@ -1,5 +1,7 @@
 package genericCheckpointing.util;
 
+import genericCheckpointing.visitor.VisitorI;
+
 public class MyAllTypesSecond extends SerializableObject {
 
 	private double myDouble=0;
@@ -10,18 +12,11 @@ public class MyAllTypesSecond extends SerializableObject {
 	
 	public MyAllTypesSecond(double myDoubleIn, float myFloatIn, short myShortIn, double myOtherDoubleIn, char myCharIn) 
 	{
-		if(myDoubleIn>=10)
-		{			
-			this.myDouble=myDoubleIn;
-		}
-		
+					
+		this.myDouble=myDoubleIn;
 		this.myFloat = myFloatIn;
 		this.myShort= myShortIn;
-		
-		if(myOtherDoubleIn>=10)
-		{			
-			this.myOtherDouble= myOtherDoubleIn;
-		}
+		this.myOtherDouble= myOtherDoubleIn;
 		this.myChar= myCharIn;
 	}
 
@@ -29,6 +24,7 @@ public class MyAllTypesSecond extends SerializableObject {
 	{
 		
 	}
+	
 	
 	
 	public double getMyDouble() {
@@ -71,6 +67,13 @@ public class MyAllTypesSecond extends SerializableObject {
 		this.myChar = myChar;
 	}
 
+	
+	public void accept(VisitorI visitor)
+	{
+		visitor.visit(this);
+	}
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

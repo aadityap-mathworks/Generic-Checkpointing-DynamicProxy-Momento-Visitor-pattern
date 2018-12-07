@@ -15,7 +15,8 @@ public class Results implements FileDisplayInterface, StdoutDisplayInterface {
 	
 	public static ArrayList<String> finalList = new ArrayList<String>();
 	String outputFile;
-	
+	public static ArrayList<Integer> prime = new ArrayList<Integer>();
+	public static ArrayList<String> pallindrome = new ArrayList<String>();
 	/**
 	 * to get output file name
 	 *@param filename
@@ -45,6 +46,11 @@ public class Results implements FileDisplayInterface, StdoutDisplayInterface {
 		setOutputFile(fileName);
 	}
 
+	public Results() {
+		
+	}
+
+
 	/**
 	 * method to store results
 	 * @param String 
@@ -55,6 +61,27 @@ public class Results implements FileDisplayInterface, StdoutDisplayInterface {
 //		MyLogger.writeMessage("Entry is made in Result with "+res+"", MyLogger.DebugLevel.ENTRY_IN_RESULT);
 	}
 	
+	/**
+	 * method to store results
+	 * @param String 
+	 */
+	public void addToPrimeResult(int primeIn)
+	{
+		if(!prime.contains(primeIn))
+		{			
+			prime.add(primeIn);
+		}
+//		MyLogger.writeMessage("Entry is made in Result with "+res+"", MyLogger.DebugLevel.ENTRY_IN_RESULT);
+	}
+	
+	public void addToPallindromeResult(String pallindromeIn)
+	{
+		if(!pallindrome.contains(pallindromeIn))
+		{			
+			pallindrome.add(pallindromeIn);
+		}
+
+	}
 	/**
 	 * method to write results to a file
 	 *
