@@ -158,6 +158,51 @@ public class Results implements FileDisplayInterface, StdoutDisplayInterface {
 	}
 
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((outputFile == null) ? 0 : outputFile.hashCode());
+		result = prime * result + ((pallindrome == null) ? 0 : pallindrome.hashCode());
+		result = prime * result + ((this.prime == null) ? 0 : this.prime.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Results other = (Results) obj;
+		if (outputFile == null) {
+			if (other.outputFile != null)
+				return false;
+		} else if (!outputFile.equals(other.outputFile))
+			return false;
+		if (pallindrome == null) {
+			if (other.pallindrome != null)
+				return false;
+		} else if (!pallindrome.equals(other.pallindrome))
+			return false;
+		if (prime == null) {
+			if (other.prime != null)
+				return false;
+		} else if (!prime.equals(other.prime))
+			return false;
+		return true;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Results [outputFile=" + outputFile + ", prime=" + prime + ", pallindrome=" + pallindrome + "]";
+	}
+
+
 	
 	
 }

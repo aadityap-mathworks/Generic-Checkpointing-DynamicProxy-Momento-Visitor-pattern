@@ -83,5 +83,43 @@ public class StoreRestoreHandler implements InvocationHandler{
 	{
 		fp.close();
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((fp == null) ? 0 : fp.hashCode());
+		result = prime * result + ((res == null) ? 0 : res.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		StoreRestoreHandler other = (StoreRestoreHandler) obj;
+		if (fp == null) {
+			if (other.fp != null)
+				return false;
+		} else if (!fp.equals(other.fp))
+			return false;
+		if (res == null) {
+			if (other.res != null)
+				return false;
+		} else if (!res.equals(other.res))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "StoreRestoreHandler [res=" + res + ", fp=" + fp + "]";
+	}
+	
+	
 	
 }

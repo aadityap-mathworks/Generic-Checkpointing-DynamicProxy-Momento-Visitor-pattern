@@ -140,8 +140,8 @@ public class MyAllTypesSecond extends SerializableObject {
 	 */
 	@Override
 	public String toString() {
-		return "MyAllTypesSecond [myDouble=" + myDouble + ", myFloat=" + myFloat + ", myShort=" + myShort
-				+ ", myOtherDouble=" + myOtherDouble + ", myChar=" + myChar + "]";
+		return "MyAllTypesSecond [\nmyDouble=" + myDouble + ", \nmyFloat=" + myFloat + ", \nmyShort=" + myShort
+				+ ", \nmyOtherDouble=" + myOtherDouble + ", \nmyChar=" + myChar + "]\n";
 	}
 
 

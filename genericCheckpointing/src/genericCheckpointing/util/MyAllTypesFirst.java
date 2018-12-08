@@ -136,8 +136,8 @@ public class MyAllTypesFirst extends SerializableObject {
 
 	@Override
 	public String toString() {
-		return "MyAllTypesFirst [myInt=" + myInt + ", myLong=" + myLong + ", myString=" + myString + ", myBool="
-				+ myBool + ", myOtherInt=" + myOtherInt + "]";
+		return "MyAllTypesFirst [\nmyInt=" + myInt + ", \nmyLong=" + myLong + ", \nmyString=" + myString + ", \nmyBool="
+				+ myBool + ", \nmyOtherInt=" + myOtherInt + "]\n";
 	}
 	
 	

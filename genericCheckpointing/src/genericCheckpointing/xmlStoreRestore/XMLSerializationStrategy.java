@@ -118,4 +118,11 @@ public class XMLSerializationStrategy implements SerStrategy{
 		
 	}
 
+	@Override
+	public String toString() {
+		return "XMLSerializationStrategy [serTypes=" + serTypes + "]";
+	}
+	
+	
+
 }

@@ -41,4 +41,43 @@ public class PalindromVisitorImpl implements VisitorI{
 		
 	}
 
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((pf == null) ? 0 : pf.hashCode());
+		result = prime * result + ((res == null) ? 0 : res.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PalindromVisitorImpl other = (PalindromVisitorImpl) obj;
+		if (pf == null) {
+			if (other.pf != null)
+				return false;
+		} else if (!pf.equals(other.pf))
+			return false;
+		if (res == null) {
+			if (other.res != null)
+				return false;
+		} else if (!res.equals(other.res))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "PalindromVisitorImpl [res=" + res + ", pf=" + pf + "]";
+	}
+
+	
+	
 }

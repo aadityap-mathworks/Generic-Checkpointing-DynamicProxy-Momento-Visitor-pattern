@@ -204,7 +204,10 @@ public class Driver {
 						{
 							System.out.println("palindrome "+(i+1)+": "+res.pallindrome.get(i));
 						}
-		
+						if(res.pallindrome.size()==0)
+						{
+							System.out.println("No palindrome found");
+						}
 						
 						break;
 						
@@ -248,6 +251,11 @@ public class Driver {
 						for(int i=0; i<res.pallindrome.size(); i++)
 						{
 							System.out.println("palindrome "+(i+1)+": "+res.pallindrome.get(i));
+						}
+						
+						if(res.pallindrome.size()==0)
+						{
+							System.out.println("No palindrome found");
 						}
 						break;
 				}
