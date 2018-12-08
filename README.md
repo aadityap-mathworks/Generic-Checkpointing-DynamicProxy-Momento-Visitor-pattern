@@ -39,6 +39,11 @@ else, Arguments accept the absolute path of the files.
 
 -----------------------------------------------------------------------
 ## Description:
+Implements Dynamic proxy pattern, momento pattern and visitor pattern.
+Reflection is while serializing and deserializing.
+prime number and palindrome code is reffered from https://www.geeksforgeeks.org/
+Data Structure to store results: ArrayList
+comlexity: O(n)
 
 -----------------------------------------------------------------------
 ### Academic Honesty statement:
@@ -50,5 +55,5 @@ I am involved in plagiarism or cheating an official form will be
 submitted to the Academic Honesty Committee of the Watson School to
 determine the action that needs to be taken. "
 
-Date: 
+Date: 12/08/2018
 
